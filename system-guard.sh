@@ -13,8 +13,12 @@ SELF="$(readlink -f "$0")"
 INSTALL_DEST="/usr/local/bin/system-guard.sh"
 SERVICE_FILE="/etc/systemd/system/system-guard.service"
 SERVICE_NAME="system-guard.service"
-LOGFILE="/var/log/system-guard.log"
-CONF_DIR="/etc/system-guard"
+if [[ $EUID -eq 0 ]]; then
+    LOGFILE="/var/log/system-guard.log"
+else
+    LOGFILE="${XDG_STATE_HOME:-$HOME/.local/state}/system-guard.log"
+    mkdir -p "$(dirname "$LOGFILE")"
+fiCONF_DIR="/etc/system-guard"
 PROTECTED_FILE="${CONF_DIR}/protected.conf"
 LOGROTATE_FILE="/etc/logrotate.d/system-guard"
 
