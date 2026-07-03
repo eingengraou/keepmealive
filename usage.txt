@@ -1,0 +1,15 @@
+chmod +x system-guard.sh
+
+# test it safely first (no kills, no hibernate — just watch the log)
+sudo tail -f /var/log/system-guard.log &
+./system-guard.sh --dry-run
+# Ctrl+C when satisfied
+
+# then install for real
+sudo ./system-guard.sh --install
+
+# re-run anytime — idempotent, only changes what's different
+sudo ./system-guard.sh --install
+
+# remove everything
+sudo ./system-guard.sh --uninstall
