@@ -18,7 +18,8 @@ if [[ $EUID -eq 0 ]]; then
 else
     LOGFILE="${XDG_STATE_HOME:-$HOME/.local/state}/system-guard.log"
     mkdir -p "$(dirname "$LOGFILE")"
-fiCONF_DIR="/etc/system-guard"
+fi
+CONF_DIR="/etc/system-guard"
 PROTECTED_FILE="${CONF_DIR}/protected.conf"
 LOGROTATE_FILE="/etc/logrotate.d/system-guard"
 
